@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudLabs Header Clone</title>
+    <title>CloudLabs - By Spektra Systems</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -13,51 +16,103 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #f8f9fa;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: #F9FAFB;
+            padding-top: 85px;
         }
 
-        /* Header Styles */
+        /* Header Container */
         .header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: #ffffff;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            width: 100vw;
+            height: 85px;
+            background: #FFFFFF;
             z-index: 1000;
+            transition: box-shadow 300ms ease;
+        }
+
+        .header.scrolled {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
         .header-container {
-            max-width: 1400px;
+            max-width: 1440px;
+            height: 100%;
             margin: 0 auto;
-            padding: 0 40px;
+            padding: 0 50px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 80px;
         }
 
-        /* Logo */
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: #0066ff;
-            text-decoration: none;
+        /* Logo Section */
+        .logo-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
         }
 
-        .logo i {
-            font-size: 32px;
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo-icon i {
+            color: #FFFFFF;
+            font-size: 22px;
+        }
+
+        .logo-text-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text {
+            display: flex;
+            align-items: baseline;
+            line-height: 1;
+        }
+
+        .logo-cloud {
+            font-size: 30px;
+            font-weight: 700;
+            color: #111827;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-labs {
+            font-size: 30px;
+            font-weight: 400;
+            color: #374151;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-tagline {
+            font-size: 10px;
+            font-weight: 400;
+            color: #9CA3AF;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-top: 2px;
         }
 
         /* Navigation */
         .nav {
             display: flex;
+            gap: 48px;
             align-items: center;
-            gap: 5px;
         }
 
         .nav-item {
@@ -68,50 +123,73 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            padding: 28px 20px;
-            color: #2c3e50;
-            text-decoration: none;
+            padding: 8px 0;
             font-size: 15px;
             font-weight: 500;
-            transition: color 0.3s;
+            color: #374151;
+            text-decoration: none;
             cursor: pointer;
+            transition: color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
 
         .nav-link:hover {
-            color: #0066ff;
+            color: #8B5CF6;
         }
 
-        .nav-link i {
-            font-size: 12px;
-            transition: transform 0.3s;
+        .nav-link:focus {
+            outline: 2px solid #8B5CF6;
+            outline-offset: 2px;
+            border-radius: 4px;
         }
 
-        .nav-item:hover .nav-link i {
+        .nav-link.active {
+            color: #8B5CF6;
+            font-weight: 600;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #8B5CF6;
+        }
+
+        .nav-arrow {
+            width: 14px;
+            height: 14px;
+            transition: transform 200ms ease;
+        }
+
+        .nav-item:hover .nav-arrow {
             transform: rotate(180deg);
         }
 
         /* Mega Menu */
         .mega-menu {
             position: absolute;
-            top: 100%;
+            top: calc(100% + 20px);
             left: 50%;
-            transform: translateX(-50%);
-            background: #ffffff;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            transform: translateX(-50%) translateY(-10px);
+            background: #FFFFFF;
             border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
             padding: 40px;
             min-width: 800px;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
-            transform: translateX(-50%) translateY(20px);
-            margin-top: 0;
+            transition: opacity 250ms ease, transform 250ms ease, visibility 250ms;
+            pointer-events: none;
         }
 
         .nav-item:hover .mega-menu {
             opacity: 1;
             visibility: visible;
             transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
         }
 
         .mega-menu-grid {
@@ -130,7 +208,7 @@
             font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
-            color: #7f8c8d;
+            color: #6B7280;
             letter-spacing: 0.5px;
             margin-bottom: 5px;
         }
@@ -141,11 +219,16 @@
             padding: 12px;
             border-radius: 8px;
             text-decoration: none;
-            transition: background 0.2s;
+            transition: background 200ms ease;
         }
 
         .mega-menu-item:hover {
-            background: #f8f9fa;
+            background: #F9FAFB;
+        }
+
+        .mega-menu-item:focus {
+            outline: 2px solid #8B5CF6;
+            outline-offset: 2px;
         }
 
         .mega-menu-icon {
@@ -154,75 +237,130 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
             border-radius: 8px;
             flex-shrink: 0;
         }
 
         .mega-menu-icon i {
-            color: #ffffff;
+            color: #FFFFFF;
             font-size: 18px;
         }
 
         .mega-menu-content h4 {
             font-size: 15px;
-            color: #2c3e50;
+            color: #111827;
             margin-bottom: 4px;
             font-weight: 600;
         }
 
         .mega-menu-content p {
             font-size: 13px;
-            color: #7f8c8d;
+            color: #6B7280;
             line-height: 1.4;
         }
 
-        /* CTA Buttons */
-        .header-cta {
+        /* Right Section */
+        .header-actions {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .email-link {
             display: flex;
             align-items: center;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border-radius: 8px;
+            gap: 8px;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 500;
+            color: #6B7280;
             text-decoration: none;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
+            transition: color 200ms ease;
         }
 
-        .btn-secondary {
+        .email-link:hover {
+            color: #374151;
+        }
+
+        .email-link:focus {
+            outline: 2px solid #8B5CF6;
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        .email-link i {
+            font-size: 16px;
+        }
+
+        .language-selector {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
             background: transparent;
-            color: #2c3e50;
-            border: 2px solid #e1e8ed;
+            border: 1px solid #E5E7EB;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            cursor: pointer;
+            transition: background 200ms ease;
+            min-height: 44px;
         }
 
-        .btn-secondary:hover {
-            border-color: #0066ff;
-            color: #0066ff;
+        .language-selector:hover {
+            background: #F9FAFB;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff;
+        .language-selector:focus {
+            outline: 2px solid #8B5CF6;
+            outline-offset: 2px;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        .language-selector i {
+            font-size: 16px;
+        }
+
+        .btn-demo {
+            background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+            color: #FFFFFF;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.25);
+            transition: all 250ms ease;
+            text-decoration: none;
+            display: inline-block;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-demo:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.35);
+            background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+        }
+
+        .btn-demo:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-demo:focus {
+            outline: 2px solid #8B5CF6;
+            outline-offset: 2px;
         }
 
         /* Content Area */
         .content {
-            margin-top: 80px;
-            padding: 80px 40px;
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
+            padding: 80px 50px;
+            max-width: 1440px;
+            margin: 0 auto;
         }
 
         .hero {
@@ -232,60 +370,186 @@
 
         .hero h1 {
             font-size: 56px;
-            color: #2c3e50;
+            color: #111827;
             margin-bottom: 20px;
             font-weight: 700;
+            letter-spacing: -1px;
         }
 
         .hero p {
             font-size: 20px;
-            color: #7f8c8d;
-            max-width: 600px;
+            color: #6B7280;
+            max-width: 700px;
             margin: 0 auto;
+            line-height: 1.6;
         }
 
-        /* Different color schemes for mega menu icons */
+        /* Icon Color Variations */
+        .mega-menu-icon.purple {
+            background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
+        }
+
         .mega-menu-icon.blue {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%);
         }
 
         .mega-menu-icon.green {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
         }
 
         .mega-menu-icon.orange {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
         }
 
-        .mega-menu-icon.purple {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        .mega-menu-icon.pink {
+            background: linear-gradient(135deg, #EC4899 0%, #F472B6 100%);
+        }
+
+        .mega-menu-icon.indigo {
+            background: linear-gradient(135deg, #6366F1 0%, #818CF8 100%);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            width: 30px;
+            height: 30px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .mobile-menu-btn span {
+            width: 24px;
+            height: 2px;
+            background: #374151;
+            transition: all 200ms ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1439px) {
+            .header-container {
+                padding: 0 40px;
+            }
+            .nav {
+                gap: 36px;
+            }
+            .logo-cloud,
+            .logo-labs {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            .header-container {
+                padding: 0 30px;
+            }
+            .nav {
+                gap: 24px;
+            }
+            .email-link {
+                display: none;
+            }
+            .btn-demo {
+                padding: 12px 24px;
+            }
+            .mega-menu {
+                min-width: 600px;
+                padding: 30px;
+            }
+            .mega-menu-grid {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .header-container {
+                padding: 0 20px;
+            }
+            .logo-cloud,
+            .logo-labs {
+                font-size: 24px;
+            }
+            .nav {
+                display: none;
+            }
+            .language-selector {
+                display: none;
+            }
+            .btn-demo {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            .mobile-menu-btn {
+                display: flex;
+            }
+            .hero h1 {
+                font-size: 36px;
+            }
+            .hero p {
+                font-size: 18px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-10px);
+            }
+            to {
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
     <!-- Header -->
-    <header class="header">
+    <header class="header" id="header">
         <div class="header-container">
-            <!-- Logo -->
-            <a href="#" class="logo">
-                <i class="fas fa-cloud"></i>
-                CloudLabs
+            <!-- Logo Section -->
+            <a href="#" class="logo-container" aria-label="CloudLabs Home">
+                <div class="logo-icon">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <div class="logo-text-container">
+                    <div class="logo-text">
+                        <span class="logo-cloud">Cloud</span>
+                        <span class="logo-labs">Labs</span>
+                    </div>
+                    <span class="logo-tagline">By Spektra Systems</span>
+                </div>
             </a>
 
             <!-- Navigation -->
-            <nav class="nav">
-                <!-- Products -->
+            <nav class="nav" role="navigation">
+                <!-- Platform -->
                 <div class="nav-item">
-                    <a class="nav-link">
-                        Products
-                        <i class="fas fa-chevron-down"></i>
+                    <a class="nav-link" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+                        Platform
+                        <svg class="nav-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
                     </a>
-                    <div class="mega-menu">
+                    <div class="mega-menu" role="menu">
                         <div class="mega-menu-grid">
                             <div class="mega-menu-section">
-                                <span class="mega-menu-title">Platforms</span>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon blue">
+                                <span class="mega-menu-title">Core Platform</span>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon purple">
                                         <i class="fas fa-laptop-code"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -293,17 +557,17 @@
                                         <p>Cloud-based virtual lab environments for hands-on learning</p>
                                     </div>
                                 </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon green">
-                                        <i class="fas fa-graduation-cap"></i>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-server"></i>
                                     </div>
                                     <div class="mega-menu-content">
-                                        <h4>Training Platform</h4>
-                                        <p>Comprehensive training and certification programs</p>
+                                        <h4>Lab Automation</h4>
+                                        <p>Automated deployment and management of lab instances</p>
                                     </div>
                                 </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon orange">
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon green">
                                         <i class="fas fa-chart-line"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -314,17 +578,8 @@
                             </div>
                             <div class="mega-menu-section">
                                 <span class="mega-menu-title">Features</span>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon purple">
-                                        <i class="fas fa-server"></i>
-                                    </div>
-                                    <div class="mega-menu-content">
-                                        <h4>Lab Automation</h4>
-                                        <p>Automated deployment and management of lab instances</p>
-                                    </div>
-                                </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon blue">
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon orange">
                                         <i class="fas fa-shield-alt"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -332,8 +587,8 @@
                                         <p>Enterprise-grade security and compliance features</p>
                                     </div>
                                 </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon green">
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon pink">
                                         <i class="fas fa-users"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -341,11 +596,20 @@
                                         <p>Work together in shared lab environments</p>
                                     </div>
                                 </a>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon indigo">
+                                        <i class="fas fa-cog"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Customization</h4>
+                                        <p>Tailor labs to your specific requirements</p>
+                                    </div>
+                                </a>
                             </div>
                             <div class="mega-menu-section">
                                 <span class="mega-menu-title">Integration</span>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon orange">
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon purple">
                                         <i class="fas fa-plug"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -353,8 +617,8 @@
                                         <p>Integrate CloudLabs with your existing tools</p>
                                     </div>
                                 </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon purple">
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon blue">
                                         <i class="fas fa-puzzle-piece"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -362,8 +626,8 @@
                                         <p>Seamless integration with learning management systems</p>
                                     </div>
                                 </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon blue">
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon green">
                                         <i class="fas fa-code"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -376,18 +640,124 @@
                     </div>
                 </div>
 
+                <!-- Learning Services -->
+                <div class="nav-item">
+                    <a class="nav-link" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+                        Learning Services
+                        <svg class="nav-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </a>
+                    <div class="mega-menu" role="menu">
+                        <div class="mega-menu-grid">
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">Training Programs</span>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon purple">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Certification Programs</h4>
+                                        <p>Industry-recognized certification training</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-user-graduate"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Skills Development</h4>
+                                        <p>Upskill your workforce with hands-on labs</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon green">
+                                        <i class="fas fa-chalkboard-teacher"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Instructor-Led Training</h4>
+                                        <p>Live training sessions with expert instructors</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">Learning Paths</span>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon orange">
+                                        <i class="fab fa-aws"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Cloud Computing</h4>
+                                        <p>AWS, Azure, GCP training environments</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon pink">
+                                        <i class="fas fa-network-wired"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>DevOps & Kubernetes</h4>
+                                        <p>Container orchestration and CI/CD labs</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon indigo">
+                                        <i class="fas fa-lock"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Cybersecurity</h4>
+                                        <p>Hands-on security training and CTF challenges</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">Resources</span>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon purple">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Learning Library</h4>
+                                        <p>Access our comprehensive learning resources</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-video"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Video Tutorials</h4>
+                                        <p>Step-by-step video guides and walkthroughs</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon green">
+                                        <i class="fas fa-certificate"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Certifications</h4>
+                                        <p>Earn industry-recognized certifications</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Solutions -->
                 <div class="nav-item">
-                    <a class="nav-link">
+                    <a class="nav-link" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
                         Solutions
-                        <i class="fas fa-chevron-down"></i>
+                        <svg class="nav-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
                     </a>
-                    <div class="mega-menu">
+                    <div class="mega-menu" role="menu">
                         <div class="mega-menu-grid">
                             <div class="mega-menu-section">
                                 <span class="mega-menu-title">By Industry</span>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon blue">
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon purple">
                                         <i class="fas fa-building"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -395,8 +765,8 @@
                                         <p>Scalable solutions for large organizations</p>
                                     </div>
                                 </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon green">
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon blue">
                                         <i class="fas fa-school"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -404,8 +774,8 @@
                                         <p>Virtual labs for schools and universities</p>
                                     </div>
                                 </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon orange">
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon green">
                                         <i class="fas fa-briefcase"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -416,61 +786,61 @@
                             </div>
                             <div class="mega-menu-section">
                                 <span class="mega-menu-title">By Use Case</span>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon purple">
-                                        <i class="fas fa-user-graduate"></i>
-                                    </div>
-                                    <div class="mega-menu-content">
-                                        <h4>Skills Development</h4>
-                                        <p>Upskill your workforce with hands-on labs</p>
-                                    </div>
-                                </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon blue">
-                                        <i class="fas fa-certificate"></i>
-                                    </div>
-                                    <div class="mega-menu-content">
-                                        <h4>Certification</h4>
-                                        <p>Deliver certification exams with practical labs</p>
-                                    </div>
-                                </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon green">
-                                        <i class="fas fa-flask"></i>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon orange">
+                                        <i class="fas fa-rocket"></i>
                                     </div>
                                     <div class="mega-menu-content">
                                         <h4>POC & Demos</h4>
                                         <p>Create proof of concepts and product demos</p>
                                     </div>
                                 </a>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon pink">
+                                        <i class="fas fa-flask"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Sandbox Environments</h4>
+                                        <p>Safe testing and experimentation spaces</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon indigo">
+                                        <i class="fas fa-bullseye"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Sales Enablement</h4>
+                                        <p>Empower your sales team with live demos</p>
+                                    </div>
+                                </a>
                             </div>
                             <div class="mega-menu-section">
                                 <span class="mega-menu-title">Technologies</span>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon orange">
-                                        <i class="fab fa-aws"></i>
-                                    </div>
-                                    <div class="mega-menu-content">
-                                        <h4>Cloud Computing</h4>
-                                        <p>AWS, Azure, GCP training environments</p>
-                                    </div>
-                                </a>
-                                <a href="#" class="mega-menu-item">
+                                <a href="#" class="mega-menu-item" role="menuitem">
                                     <div class="mega-menu-icon purple">
-                                        <i class="fas fa-network-wired"></i>
+                                        <i class="fab fa-microsoft"></i>
                                     </div>
                                     <div class="mega-menu-content">
-                                        <h4>DevOps & Kubernetes</h4>
-                                        <p>Container orchestration and CI/CD labs</p>
+                                        <h4>Microsoft Azure</h4>
+                                        <p>Azure training and certification labs</p>
                                     </div>
                                 </a>
-                                <a href="#" class="mega-menu-item">
+                                <a href="#" class="mega-menu-item" role="menuitem">
                                     <div class="mega-menu-icon blue">
-                                        <i class="fas fa-lock"></i>
+                                        <i class="fab fa-docker"></i>
                                     </div>
                                     <div class="mega-menu-content">
-                                        <h4>Cybersecurity</h4>
-                                        <p>Hands-on security training and CTF challenges</p>
+                                        <h4>Containers & K8s</h4>
+                                        <p>Docker and Kubernetes hands-on training</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon green">
+                                        <i class="fas fa-database"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Data & AI</h4>
+                                        <p>Machine learning and data science labs</p>
                                     </div>
                                 </a>
                             </div>
@@ -480,34 +850,27 @@
 
                 <!-- Resources -->
                 <div class="nav-item">
-                    <a class="nav-link">
+                    <a class="nav-link" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
                         Resources
-                        <i class="fas fa-chevron-down"></i>
+                        <svg class="nav-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
                     </a>
-                    <div class="mega-menu">
+                    <div class="mega-menu" role="menu">
                         <div class="mega-menu-grid">
                             <div class="mega-menu-section">
                                 <span class="mega-menu-title">Learn</span>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon blue">
-                                        <i class="fas fa-book"></i>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon purple">
+                                        <i class="fas fa-book-open"></i>
                                     </div>
                                     <div class="mega-menu-content">
                                         <h4>Documentation</h4>
                                         <p>Comprehensive guides and API references</p>
                                     </div>
                                 </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon green">
-                                        <i class="fas fa-video"></i>
-                                    </div>
-                                    <div class="mega-menu-content">
-                                        <h4>Video Tutorials</h4>
-                                        <p>Step-by-step video guides and walkthroughs</p>
-                                    </div>
-                                </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon orange">
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon blue">
                                         <i class="fas fa-file-alt"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -515,11 +878,20 @@
                                         <p>Latest news, updates, and best practices</p>
                                     </div>
                                 </a>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon green">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Case Studies</h4>
+                                        <p>Success stories from our customers</p>
+                                    </div>
+                                </a>
                             </div>
                             <div class="mega-menu-section">
                                 <span class="mega-menu-title">Support</span>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon purple">
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon orange">
                                         <i class="fas fa-life-ring"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -527,8 +899,8 @@
                                         <p>Get answers to common questions</p>
                                     </div>
                                 </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon blue">
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon pink">
                                         <i class="fas fa-comments"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -536,8 +908,8 @@
                                         <p>Connect with other CloudLabs users</p>
                                     </div>
                                 </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon green">
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon indigo">
                                         <i class="fas fa-headset"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -547,18 +919,18 @@
                                 </a>
                             </div>
                             <div class="mega-menu-section">
-                                <span class="mega-menu-title">Resources</span>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon orange">
-                                        <i class="fas fa-download"></i>
+                                <span class="mega-menu-title">Company</span>
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon purple">
+                                        <i class="fas fa-info-circle"></i>
                                     </div>
                                     <div class="mega-menu-content">
-                                        <h4>Downloads</h4>
-                                        <p>Client tools, templates, and resources</p>
+                                        <h4>About Us</h4>
+                                        <p>Learn about our mission and vision</p>
                                     </div>
                                 </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon purple">
+                                <a href="#" class="mega-menu-item" role="menuitem">
+                                    <div class="mega-menu-icon blue">
                                         <i class="fas fa-calendar"></i>
                                     </div>
                                     <div class="mega-menu-content">
@@ -566,79 +938,7 @@
                                         <p>Join our upcoming events and training sessions</p>
                                     </div>
                                 </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon blue">
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="mega-menu-content">
-                                        <h4>Case Studies</h4>
-                                        <p>Success stories from our customers</p>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Company -->
-                <div class="nav-item">
-                    <a class="nav-link">
-                        Company
-                        <i class="fas fa-chevron-down"></i>
-                    </a>
-                    <div class="mega-menu">
-                        <div class="mega-menu-grid">
-                            <div class="mega-menu-section">
-                                <span class="mega-menu-title">About Us</span>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon blue">
-                                        <i class="fas fa-info-circle"></i>
-                                    </div>
-                                    <div class="mega-menu-content">
-                                        <h4>About CloudLabs</h4>
-                                        <p>Learn about our mission and vision</p>
-                                    </div>
-                                </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon green">
-                                        <i class="fas fa-users"></i>
-                                    </div>
-                                    <div class="mega-menu-content">
-                                        <h4>Our Team</h4>
-                                        <p>Meet the people behind CloudLabs</p>
-                                    </div>
-                                </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon orange">
-                                        <i class="fas fa-briefcase"></i>
-                                    </div>
-                                    <div class="mega-menu-content">
-                                        <h4>Careers</h4>
-                                        <p>Join our growing team</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="mega-menu-section">
-                                <span class="mega-menu-title">News & Media</span>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon purple">
-                                        <i class="fas fa-newspaper"></i>
-                                    </div>
-                                    <div class="mega-menu-content">
-                                        <h4>Press Releases</h4>
-                                        <p>Latest company announcements</p>
-                                    </div>
-                                </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon blue">
-                                        <i class="fas fa-award"></i>
-                                    </div>
-                                    <div class="mega-menu-content">
-                                        <h4>Awards & Recognition</h4>
-                                        <p>Our achievements and accolades</p>
-                                    </div>
-                                </a>
-                                <a href="#" class="mega-menu-item">
+                                <a href="#" class="mega-menu-item" role="menuitem">
                                     <div class="mega-menu-icon green">
                                         <i class="fas fa-handshake"></i>
                                     </div>
@@ -648,50 +948,38 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="mega-menu-section">
-                                <span class="mega-menu-title">Legal</span>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon orange">
-                                        <i class="fas fa-file-contract"></i>
-                                    </div>
-                                    <div class="mega-menu-content">
-                                        <h4>Terms of Service</h4>
-                                        <p>Read our terms and conditions</p>
-                                    </div>
-                                </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon purple">
-                                        <i class="fas fa-shield-alt"></i>
-                                    </div>
-                                    <div class="mega-menu-content">
-                                        <h4>Privacy Policy</h4>
-                                        <p>How we protect your data</p>
-                                    </div>
-                                </a>
-                                <a href="#" class="mega-menu-item">
-                                    <div class="mega-menu-icon blue">
-                                        <i class="fas fa-balance-scale"></i>
-                                    </div>
-                                    <div class="mega-menu-content">
-                                        <h4>Compliance</h4>
-                                        <p>Security and compliance certifications</p>
-                                    </div>
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Pricing -->
+                <!-- Contact Us -->
                 <div class="nav-item">
-                    <a href="#" class="nav-link">Pricing</a>
+                    <a href="#" class="nav-link">Contact Us</a>
                 </div>
             </nav>
 
-            <!-- CTA Buttons -->
-            <div class="header-cta">
-                <a href="#" class="btn btn-secondary">Sign In</a>
-                <a href="#" class="btn btn-primary">Get Started</a>
+            <!-- Right Actions -->
+            <div class="header-actions">
+                <a href="mailto:info@cloudlabs.ai" class="email-link" aria-label="Email Us">
+                    <i class="fas fa-envelope"></i>
+                    Email Us
+                </a>
+
+                <button class="language-selector" aria-label="Select Language" aria-haspopup="true">
+                    <i class="fas fa-globe"></i>
+                    English
+                    <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+
+                <a href="#" class="btn-demo" aria-label="Book a Demo">Book a Demo</a>
+
+                <button class="mobile-menu-btn" aria-label="Toggle Menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </header>
@@ -700,9 +988,45 @@
     <div class="content">
         <div class="hero">
             <h1>Cloud-Based Virtual Labs</h1>
-            <p>Empower your team with hands-on learning experiences in secure, scalable cloud environments</p>
+            <p>Empower your team with hands-on learning experiences in secure, scalable cloud environments. Build skills that matter with real-world scenarios.</p>
         </div>
     </div>
 
+    <script>
+        // Add scroll shadow to header
+        const header = document.getElementById('header');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Keyboard navigation for dropdowns
+        document.querySelectorAll('.nav-link[aria-haspopup="true"]').forEach(link => {
+            link.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const megaMenu = link.nextElementSibling;
+                    const isExpanded = link.getAttribute('aria-expanded') === 'true';
+                    link.setAttribute('aria-expanded', !isExpanded);
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('.nav');
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+                mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+                nav.classList.toggle('mobile-open');
+            });
+        }
+    </script>
 </body>
 </html>
