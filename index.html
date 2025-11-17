@@ -3,27 +3,706 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple HTML Page</title>
+    <title>CloudLabs Header Clone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f8f9fa;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        /* Logo */
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0066ff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 28px 20px;
+            color: #2c3e50;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #0066ff;
+        }
+
+        .nav-link i {
+            font-size: 12px;
+            transition: transform 0.3s;
+        }
+
+        .nav-item:hover .nav-link i {
+            transform: rotate(180deg);
+        }
+
+        /* Mega Menu */
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffffff;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            border-radius: 12px;
+            padding: 40px;
+            min-width: 800px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            transform: translateX(-50%) translateY(20px);
+            margin-top: 0;
+        }
+
+        .nav-item:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .mega-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .mega-menu-section {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mega-menu-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .mega-menu-item {
+            display: flex;
+            gap: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .mega-menu-item:hover {
+            background: #f8f9fa;
+        }
+
+        .mega-menu-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .mega-menu-icon i {
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        .mega-menu-content h4 {
+            font-size: 15px;
+            color: #2c3e50;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .mega-menu-content p {
+            font-size: 13px;
+            color: #7f8c8d;
+            line-height: 1.4;
+        }
+
+        /* CTA Buttons */
+        .header-cta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #2c3e50;
+            border: 2px solid #e1e8ed;
+        }
+
+        .btn-secondary:hover {
+            border-color: #0066ff;
+            color: #0066ff;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Content Area */
+        .content {
+            margin-top: 80px;
+            padding: 80px 40px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Different color schemes for mega menu icons */
+        .mega-menu-icon.blue {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .mega-menu-icon.green {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+
+        .mega-menu-icon.orange {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .mega-menu-icon.purple {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Page</h1>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <i class="fas fa-cloud"></i>
+                CloudLabs
+            </a>
+
+            <!-- Navigation -->
+            <nav class="nav">
+                <!-- Products -->
+                <div class="nav-item">
+                    <a class="nav-link">
+                        Products
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-grid">
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">Platforms</span>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-laptop-code"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Virtual Labs</h4>
+                                        <p>Cloud-based virtual lab environments for hands-on learning</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon green">
+                                        <i class="fas fa-graduation-cap"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Training Platform</h4>
+                                        <p>Comprehensive training and certification programs</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon orange">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Analytics Dashboard</h4>
+                                        <p>Track progress and measure learning outcomes</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">Features</span>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon purple">
+                                        <i class="fas fa-server"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Lab Automation</h4>
+                                        <p>Automated deployment and management of lab instances</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Security & Compliance</h4>
+                                        <p>Enterprise-grade security and compliance features</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon green">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Team Collaboration</h4>
+                                        <p>Work together in shared lab environments</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">Integration</span>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon orange">
+                                        <i class="fas fa-plug"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>API & SDKs</h4>
+                                        <p>Integrate CloudLabs with your existing tools</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon purple">
+                                        <i class="fas fa-puzzle-piece"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>LMS Integration</h4>
+                                        <p>Seamless integration with learning management systems</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Developer Tools</h4>
+                                        <p>Build custom labs and experiences</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solutions -->
+                <div class="nav-item">
+                    <a class="nav-link">
+                        Solutions
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-grid">
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">By Industry</span>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-building"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Enterprise</h4>
+                                        <p>Scalable solutions for large organizations</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon green">
+                                        <i class="fas fa-school"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Education</h4>
+                                        <p>Virtual labs for schools and universities</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon orange">
+                                        <i class="fas fa-briefcase"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Training Partners</h4>
+                                        <p>Solutions for training and certification providers</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">By Use Case</span>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon purple">
+                                        <i class="fas fa-user-graduate"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Skills Development</h4>
+                                        <p>Upskill your workforce with hands-on labs</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-certificate"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Certification</h4>
+                                        <p>Deliver certification exams with practical labs</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon green">
+                                        <i class="fas fa-flask"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>POC & Demos</h4>
+                                        <p>Create proof of concepts and product demos</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">Technologies</span>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon orange">
+                                        <i class="fab fa-aws"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Cloud Computing</h4>
+                                        <p>AWS, Azure, GCP training environments</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon purple">
+                                        <i class="fas fa-network-wired"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>DevOps & Kubernetes</h4>
+                                        <p>Container orchestration and CI/CD labs</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-lock"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Cybersecurity</h4>
+                                        <p>Hands-on security training and CTF challenges</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resources -->
+                <div class="nav-item">
+                    <a class="nav-link">
+                        Resources
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-grid">
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">Learn</span>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Documentation</h4>
+                                        <p>Comprehensive guides and API references</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon green">
+                                        <i class="fas fa-video"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Video Tutorials</h4>
+                                        <p>Step-by-step video guides and walkthroughs</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon orange">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Blog</h4>
+                                        <p>Latest news, updates, and best practices</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">Support</span>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon purple">
+                                        <i class="fas fa-life-ring"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Help Center</h4>
+                                        <p>Get answers to common questions</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-comments"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Community Forum</h4>
+                                        <p>Connect with other CloudLabs users</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon green">
+                                        <i class="fas fa-headset"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Contact Support</h4>
+                                        <p>Get help from our support team</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">Resources</span>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon orange">
+                                        <i class="fas fa-download"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Downloads</h4>
+                                        <p>Client tools, templates, and resources</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon purple">
+                                        <i class="fas fa-calendar"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Events & Webinars</h4>
+                                        <p>Join our upcoming events and training sessions</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Case Studies</h4>
+                                        <p>Success stories from our customers</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Company -->
+                <div class="nav-item">
+                    <a class="nav-link">
+                        Company
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-grid">
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">About Us</span>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-info-circle"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>About CloudLabs</h4>
+                                        <p>Learn about our mission and vision</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon green">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Our Team</h4>
+                                        <p>Meet the people behind CloudLabs</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon orange">
+                                        <i class="fas fa-briefcase"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Careers</h4>
+                                        <p>Join our growing team</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">News & Media</span>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon purple">
+                                        <i class="fas fa-newspaper"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Press Releases</h4>
+                                        <p>Latest company announcements</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-award"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Awards & Recognition</h4>
+                                        <p>Our achievements and accolades</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon green">
+                                        <i class="fas fa-handshake"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Partners</h4>
+                                        <p>Our technology and business partners</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="mega-menu-section">
+                                <span class="mega-menu-title">Legal</span>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon orange">
+                                        <i class="fas fa-file-contract"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Terms of Service</h4>
+                                        <p>Read our terms and conditions</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon purple">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Privacy Policy</h4>
+                                        <p>How we protect your data</p>
+                                    </div>
+                                </a>
+                                <a href="#" class="mega-menu-item">
+                                    <div class="mega-menu-icon blue">
+                                        <i class="fas fa-balance-scale"></i>
+                                    </div>
+                                    <div class="mega-menu-content">
+                                        <h4>Compliance</h4>
+                                        <p>Security and compliance certifications</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link">Pricing</a>
+                </div>
+            </nav>
+
+            <!-- CTA Buttons -->
+            <div class="header-cta">
+                <a href="#" class="btn btn-secondary">Sign In</a>
+                <a href="#" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
     </header>
 
-    <main>
-        <section>
-            <h2>About</h2>
-            <p>This is a simple HTML page.</p>
-        </section>
+    <!-- Content -->
+    <div class="content">
+        <div class="hero">
+            <h1>Cloud-Based Virtual Labs</h1>
+            <p>Empower your team with hands-on learning experiences in secure, scalable cloud environments</p>
+        </div>
+    </div>
 
-        <section>
-            <h2>Content</h2>
-            <p>You can add more content here as needed.</p>
-        </section>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 Simple HTML Page</p>
-    </footer>
 </body>
 </html>
